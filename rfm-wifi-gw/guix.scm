@@ -69,47 +69,7 @@
   (description "Tool for interacting remotely with @code{MicroPython} devices")
   (license expat)))
   
-
-; (define circuitpython-stubs
-; (package
-;   (name "python-circuitpython-stubs")
-;   (version "8.2.7")
-;   (source
-;    (origin
-;      (method url-fetch)
-;      (uri (pypi-uri "circuitpython-stubs" version))
-;      (sha256
-;       (base32 "0d41ji5vhd3rsxa9x6cngxmlicifg8dn24q36gmhhrn6a2q6kyjm"))))
-;   (build-system python-build-system)
-;      (arguments
-;         ; '(#:install-plan '(("./" "lib/python3.10/site-packages/micropython-rp2-pico-stubs" ))
-;         '(#:phases
-;           (modify-phases %standard-phases
-;             (delete 'build)
-;             (replace 'install ;; Replace the install step with the function defined below
-;                (lambda* (#:key outputs #:allow-other-keys)
-;                  (let* ((outlib (string-append (assoc-ref outputs "out") "/lib/python3.10/site-packages")))
-;                (copy-recursively "." outlib))))
-;             (delete 'check)
-;             (delete 'sanity-check))
-;           #:tests? #f))
-;      (native-search-paths
-;        (list (search-path-specification
-;             (variable "GUIX_PYTHONPATH")
-;             (files (list "/lib/python3.10/site-packages")))))
-;   (inputs 
-;     `(("python" ,python))
-;       ; ("helix-editor-bin" ,helix-editor-bin)
-;       ; ("python-lsp-server", python-lsp-server)
-;       ; ("python-mpremote" ,python-mpremote))
-;       )
-;   (home-page "https://github.com/adafruit/circuitpython")
-;   (synopsis "PEP 561 type stubs for CircuitPython")
-;   (description "PEP 561 type stubs for @code{CircuitPython}")
-;   (license expat))
-; )
-
-(define-public micropython-rp2-pico-w-stubs
+(define micropython-rp2-pico-w-stubs
   (package
     (name "python-micropython-rp2-pico-w-stubs")
     (version "1.22.0.post1")
@@ -147,6 +107,30 @@
     (license expat))
 )
 
+(define drv-rfm69
+  (package 
+  (name "drv-rfm69")
+  (version "0.0.1")
+  (build-system copy-build-system)
+  (source
+     (origin
+       (method url-fetch)
+       (uri "https://raw.githubusercontent.com/mchobby/esp8266-upy/master/rfm69/lib/rfm69.py")
+       (sha256
+        (base32 "1pr318cn1l3pa470as0ah7wjz4wr3dan9nd4v83wh9c90z0qgq39"))))
+  (arguments
+   '(#:install-plan '(("rfm69.py" "/lib/python3.10/site-packages/rfm69.py"))))
+  (native-search-paths
+    (list (search-path-specification
+       (variable "GUIX_PYTHONPATH")
+         (files (list "/lib/python3.10/site-packages")))))
+  (synopsis "")
+  (description "")
+  (home-page "")
+  (license #f)
+  )
+)
+
 (define mock-package
   (package
     (name "mock-package")
@@ -158,6 +142,7 @@
         ("helix-editor-bin" ,helix-editor-bin)
         ("python-lsp-server", python-lsp-server)
         ("python-mpremote" ,python-mpremote)
+        ("drv-rfm69" ,drv-rfm69)
         ("micropython-rp2-pico-w-stubs" ,micropython-rp2-pico-w-stubs)))
     (synopsis "")
     (description "")
