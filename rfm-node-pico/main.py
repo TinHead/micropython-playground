@@ -6,15 +6,15 @@ from machine import SPI, Pin
 
 # init pins
 CS = Pin(17, Pin.OUT, value=True)
-RESET = Pin(20, Pin.OUT, value=False)
+RESET = Pin(21, Pin.OUT, value=False)
 MISO = Pin(16)
 MOSI = Pin(19)
 SCK = Pin(18)
 RELAY = Pin(22, Pin.OUT, value=True)
 LED = Pin("LED", Pin.OUT, value=False)
 
-MY_NAME = "test1"
-MY_ID = 3
+MY_NAME = "centrala1001"
+MY_ID = 1
 MY_STATE = "OFF"
 GW_UP = True
 
@@ -44,7 +44,7 @@ def init_rfm69(cs, reset, sck, mosi, miso):
     rfm = RFM69(spi=spi, nss=cs, reset=reset)
     rfm.frequency_mhz = 433.1
     rfm.node = MY_ID
-    rfm.ack_retries = 2
+    rfm.ack_retries = 5
     rfm.encryption_key = (
         b"\x01\x02\x03\x04\x05\x06\x07\x08\x01\x02\x03\x04\x05\x06\x07\x08"
     )
